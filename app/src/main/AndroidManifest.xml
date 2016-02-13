@@ -9,7 +9,6 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name"
@@ -20,10 +19,15 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity
-            android:name=".CreateUser"
-            android:label="@string/title_activity_create_user"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:name="com.now.live.livenow.CreateUser"
+            android:label="Create User">
+            <!--android:parentActivityName="com.now.live.livenow.MainActivity" >-->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.now.live.livenow.MainActivity" />
+        </activity>
     </application>
 
 </manifest>
