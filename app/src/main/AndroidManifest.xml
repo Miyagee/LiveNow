@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.now.live.livenow">
-
+    <uses-permission android:name="android.permission.INTERNET" />
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <uses-permission android:name="android.permission.INTERNET" />
+
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name"
@@ -18,6 +18,15 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+
+        <activity
+            android:name="com.now.live.livenow.CreateUser"
+            android:label="Create User">
+            <!--android:parentActivityName="com.now.live.livenow.MainActivity" >-->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.now.live.livenow.MainActivity" />
         </activity>
     </application>
 
