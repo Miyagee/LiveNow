@@ -7,6 +7,7 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.EditText;
 
 import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
@@ -21,6 +22,9 @@ public class CreateUser extends AppCompatActivity {
     private User user;
     private String password;
     private String email;
+    public EditText nameField;
+    public EditText passField;
+    public EditText emailField;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +41,10 @@ public class CreateUser extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
+        nameField = (EditText) findViewById(R.id.nameField);
+        passField = (EditText) findViewById(R.id.passwordField);
+        emailField = (EditText) findViewById(R.id.emailField);
+
     }
 
     public void getInfo(String name, String password, String email){
@@ -46,7 +54,7 @@ public class CreateUser extends AppCompatActivity {
     }
 
     public void addNewUser(View view){
-        getInfo("Jie Li", "123456", "jieli280495@gmail.com");
+        getInfo(nameField.getText().toString(), passField.getText().toString(), emailField.getText().toString());
 
         usersRef.createUser(getEmail(), getPassword(), new Firebase.ValueResultHandler<Map<String, Object>>() {
             @Override
