@@ -9,10 +9,14 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.EditText;
 
 import com.firebase.client.Firebase;
 
 public class MainActivity extends AppCompatActivity {
+
+    private EditText passwordField;
+    private EditText emailField;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +34,9 @@ public class MainActivity extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
+
+        passwordField = (EditText) findViewById(R.id.loginPassword);
+        emailField = (EditText) findViewById(R.id.loginEmail);
     }
 
     @Override
@@ -57,6 +64,13 @@ public class MainActivity extends AppCompatActivity {
     public void newUser(View view){
         Intent intent = new Intent(this, CreateUser.class);
         startActivity(intent);
+    }
+
+    public void loginUser(View view){
+        String email = emailField.getText().toString();
+        String password = passwordField.getText().toString();
+        LoginUser login = new LoginUser();
+        login.loginAuth(email, password);
     }
 
 }

@@ -22,15 +22,15 @@ public class CreateUser extends AppCompatActivity {
     private User user;
     private String password;
     private String email;
-    public EditText nameField;
-    public EditText passField;
-    public EditText emailField;
+    private EditText nameField;
+    private EditText passField;
+    private EditText emailField;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_user);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        //Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         //setSupportActionBar(toolbar);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
