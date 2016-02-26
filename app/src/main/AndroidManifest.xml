@@ -1,16 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.now.live.livenow">
+
     <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
         <activity
-            android:name=".MainActivity"
+            android:name=".LoginActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
@@ -19,15 +20,19 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
-            android:name="com.now.live.livenow.CreateUser"
+            android:name=".CreateUser"
             android:label="Create User">
-            <!--android:parentActivityName="com.now.live.livenow.MainActivity" >-->
+
+            <!-- android:parentActivityName="com.now.live.livenow.LoginActivityy" > -->
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.now.live.livenow.MainActivity" />
+                android:value=".LoginActivity" />
         </activity>
+        <activity
+            android:name=".MainActivity"
+            android:label="@string/title_activity_main"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

@@ -1,15 +1,18 @@
 package com.now.live.livenow;
 
+import java.util.ArrayList;
+
 /**
  * Created by jieli on 09.02.16.
  */
-public class User {
+public class User{
 
     private String email;
     private String name;
     private String picture;
     private String password;
     private int discoverRange;
+    private ArrayList<Observer> groups;
 
 
     public User(String email, String name, String password, String picture, int discoverRange){
@@ -47,5 +50,6 @@ public class User {
     public void setDiscoverRange(int discoverRange){
         this.discoverRange = discoverRange;
     }
+
 
 }
