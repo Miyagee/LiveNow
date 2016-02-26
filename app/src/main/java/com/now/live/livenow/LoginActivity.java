@@ -15,13 +15,11 @@ import com.firebase.client.AuthData;
 import com.firebase.client.Firebase;
 import com.firebase.client.Firebase.AuthStateListener;
 
-import java.util.concurrent.Semaphore;
 
 public class LoginActivity extends AppCompatActivity {
 
     private EditText passwordField;
     private EditText emailField;
-    //private Semaphore semaphore;
     private AuthStateListener mAuthStateListener;
     Firebase ref;
 
@@ -76,11 +74,14 @@ public class LoginActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+
+    //Goto new user activity
     public void newUser(View view){
         Intent intent = new Intent(this, CreateUser.class);
         startActivity(intent);
     }
 
+    //Gets data from fields and tries to login
     public void loginUser(View view) {
         String email = emailField.getText().toString();
         String password = passwordField.getText().toString();
@@ -90,6 +91,7 @@ public class LoginActivity extends AppCompatActivity {
         ref.addAuthStateListener(mAuthStateListener);
     }
 
+    //Checks if login was a success
     public void logInSuccess(AuthData authData){
         mAuthStateListener = new AuthStateListener() {
             @Override
@@ -98,16 +100,19 @@ public class LoginActivity extends AppCompatActivity {
                     System.out.println(authData);
                     goToLoggedInScreen();
                 }
+                else {
+                    System.out.println("Wrong");
+                }
             }
         };
 
     }
-
+    //Moves to logged-in activity
     public void goToLoggedInScreen(){
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
     }
-
+    //Auto log in if token exists
     public void autoLogIn(){
         if (ref.getAuth() != null){
             goToLoggedInScreen();
