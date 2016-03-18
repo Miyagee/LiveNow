@@ -28,9 +28,8 @@
             android:ems="10"
             android:id="@+id/login_email"
             android:hint="@string/email_user"
-            android:layout_below="@+id/logoIcon"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="137dp" />
+            android:layout_centerVertical="true"
+            android:layout_alignStart="@+id/login_password" />
 
         <EditText
             android:layout_width="wrap_content"
