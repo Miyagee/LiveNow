@@ -28,8 +28,9 @@
             android:ems="10"
             android:id="@+id/login_email"
             android:hint="@string/email_user"
-            android:layout_centerVertical="true"
-            android:layout_alignStart="@+id/login_password" />
+            android:layout_below="@+id/logoIcon"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="80dp" />
 
         <EditText
             android:layout_width="wrap_content"
@@ -44,7 +45,7 @@
         <Button
             android:layout_width="100dp"
             android:layout_height="wrap_content"
-            android:text="Login"
+            android:text="@string/button_Login"
             android:id="@+id/authenticateLoginButton"
             android:layout_below="@+id/login_password"
             android:layout_alignEnd="@+id/login_password"
@@ -54,7 +55,7 @@
         <Button
             android:layout_width="100dp"
             android:layout_height="wrap_content"
-            android:text="Cancel"
+            android:text="@string/button_cancel"
             android:id="@+id/cancelButton"
             android:layout_alignTop="@+id/authenticateLoginButton"
             android:layout_alignStart="@+id/login_password"

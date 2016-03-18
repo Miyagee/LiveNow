@@ -176,17 +176,11 @@ public class RegisterLogin extends AppCompatActivity implements LoginFragment.On
 
     //Gets data from fields and tries to login
     public void authenticateUserLogin(View view){
-        Log.d(TAG,"email");
         String email = loginFragment.getEmail();
-        Log.d(TAG,"pass");
         String password = loginFragment.getPassword();
-        Log.d(TAG,"create logim");
         LoginUser login = new LoginUser();
-        Log.d(TAG,"login");
         login.loginAuth(email, password);
-        Log.d(TAG, "check success");
         logInSuccess(login.getAuthenticatedUser());
-        Log.d(TAG, "mauth");
         ref.addAuthStateListener(mAuthStateListener);
     }
 

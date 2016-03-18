@@ -9,6 +9,7 @@
     <string name="email_user">E-mail</string>
     <string name="password_user">Password</string>
     <string name="button_Login">Login</string>
+    <string name="button_cancel">Cancel</string>
     <string name="button_Signup">Sign up</string>
     <string name="logo_description">Logo</string>
 
