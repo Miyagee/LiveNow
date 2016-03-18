@@ -1,6 +1,15 @@
 <resources>
     <string name="app_name">Live Now</string>
     <string name="action_settings">Settings</string>
-    <string name="title_activity_create_user">Create User</string>
-    <string name="title_activity_main">MainActivity</string>
+
+
+    <!--RegisterLogin res-->
+    <string name="already_have_account">Already have an account? Login here</string>
+    <string name="name_user">Name</string>
+    <string name="email_user">E-mail</string>
+    <string name="password_user">Password</string>
+    <string name="button_Login">Login</string>
+    <string name="button_Signup">Sign up</string>
+    <string name="logo_description">Logo</string>
+
 </resources>
