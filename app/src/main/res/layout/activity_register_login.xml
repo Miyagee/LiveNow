@@ -20,74 +20,79 @@
             android:layout_weight="1"/>
     </LinearLayout>
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/signUpLayout">
+        <ImageView
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:id="@+id/logoIcon"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="34dp"
+            android:src="@drawable/logo"
+            android:contentDescription="@string/logo_description" />
 
-    <ImageView
-        android:layout_width="150dp"
-        android:layout_height="150dp"
-        android:id="@+id/logoIcon"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="34dp"
-        android:src="@drawable/logo"
-        android:contentDescription="@string/logo_description" />
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="textPersonName"
+            android:ems="10"
+            android:id="@+id/nameField"
+            android:layout_marginTop="31dp"
+            android:layout_below="@+id/logoIcon"
+            android:layout_alignLeft="@+id/passwordField"
+            android:layout_alignStart="@+id/passwordField"
+            android:hint="@string/name_user"/>
 
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:inputType="textPersonName"
-        android:ems="10"
-        android:id="@+id/nameField"
-        android:layout_marginTop="31dp"
-        android:layout_below="@+id/logoIcon"
-        android:layout_alignLeft="@+id/passwordField"
-        android:layout_alignStart="@+id/passwordField"
-        android:hint="@string/name_user"/>
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="textEmailAddress"
+            android:ems="10"
+            android:id="@+id/emailField"
+            android:layout_below="@+id/nameField"
+            android:layout_alignLeft="@+id/nameField"
+            android:layout_alignStart="@+id/nameField"
+            android:hint="@string/email_user"/>
 
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:inputType="textEmailAddress"
-        android:ems="10"
-        android:id="@+id/emailField"
-        android:layout_below="@+id/nameField"
-        android:layout_alignLeft="@+id/nameField"
-        android:layout_alignStart="@+id/nameField"
-        android:hint="@string/email_user"/>
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="textPassword"
+            android:ems="10"
+            android:id="@+id/passwordField"
+            android:layout_below="@+id/emailField"
+            android:layout_centerHorizontal="true"
+            android:hint="@string/password_user"/>
 
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:inputType="textPassword"
-        android:ems="10"
-        android:id="@+id/passwordField"
-        android:layout_below="@+id/emailField"
-        android:layout_centerHorizontal="true"
-        android:hint="@string/password_user"/>
+        <Button
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:text="@string/button_Signup"
+            android:id="@+id/sign_up_button"
+            android:layout_below="@+id/passwordField"
+            android:layout_centerHorizontal="true"
+            android:onClick="addNewUser"/>
 
-    <Button
-        android:layout_width="150dp"
-        android:layout_height="wrap_content"
-        android:text="@string/button_Signup"
-        android:id="@+id/sign_up_button"
-        android:layout_below="@+id/passwordField"
-        android:layout_centerHorizontal="true"
-        android:onClick="addNewUser"/>
+        <Button
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:text="@string/button_Login"
+            android:id="@+id/login_button"
+            android:layout_below="@+id/userExistText"
+            android:layout_alignLeft="@+id/sign_up_button"
+            android:onClick="loginOnClick"/>
 
-    <Button
-        android:layout_width="150dp"
-        android:layout_height="wrap_content"
-        android:text="@string/button_Login"
-        android:id="@+id/login_button"
-        android:layout_below="@+id/userExistText"
-        android:layout_alignLeft="@+id/sign_up_button"
-        android:onClick="loginOnClick"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/already_have_account"
+            android:id="@+id/userExistText"
+            android:layout_below="@+id/sign_up_button"
+            android:layout_centerHorizontal="true" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/already_have_account"
-        android:id="@+id/userExistText"
-        android:layout_below="@+id/sign_up_button"
-        android:layout_centerHorizontal="true" />
+    </RelativeLayout>
 
 </RelativeLayout>

@@ -37,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
     //Log out button
     public void logOut(View view){
         ref.unauth();
-        Intent intent = new Intent(this, LoginActivity.class);
+        Intent intent = new Intent(this, RegisterLogin.class);
         startActivity(intent);
     }
 

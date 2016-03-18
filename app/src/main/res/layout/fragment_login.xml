@@ -41,5 +41,25 @@
             android:layout_below="@+id/login_email"
             android:layout_centerHorizontal="true"
             android:hint="@string/password_user"/>
+
+        <Button
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:text="Login"
+            android:id="@+id/authenticateLoginButton"
+            android:layout_below="@+id/login_password"
+            android:layout_alignEnd="@+id/login_password"
+            android:layout_marginTop="25dp"
+            android:onClick="authenticateUserLogin"/>
+
+        <Button
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:text="Cancel"
+            android:id="@+id/cancelButton"
+            android:layout_alignTop="@+id/authenticateLoginButton"
+            android:layout_alignStart="@+id/login_password"
+            android:onClick="cancelOnClick"
+            />
     </RelativeLayout>
 </FrameLayout>
