@@ -13,4 +13,7 @@
     <string name="button_Signup">Sign up</string>
     <string name="logo_description">Logo</string>
 
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
 </resources>

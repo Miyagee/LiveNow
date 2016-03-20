@@ -16,6 +16,9 @@ public class User{
     private int discoverRange;
     private ArrayList<Observer> groups;
 
+    public User(){
+        //Empty constructor required for firebase to work!!
+    }
 
     public User(String email, String name, String password, String picture, int discoverRange){
         this.email = email;
