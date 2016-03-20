@@ -21,6 +21,7 @@
             android:hint="@string/email_user"
             android:layout_alignParentTop="true"
             android:layout_alignStart="@+id/login_password"
+            android:layout_centerHorizontal="true"
             android:layout_marginTop="250dp" />
 
         <EditText
