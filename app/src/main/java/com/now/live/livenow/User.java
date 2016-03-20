@@ -1,6 +1,7 @@
 package com.now.live.livenow;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 /**
  * Created by jieli on 09.02.16.
@@ -9,6 +10,7 @@ public class User{
 
     private String email;
     private String name;
+    private Date birthDate;
     private String picture;
     private String password;
     private int discoverRange;
@@ -51,5 +53,8 @@ public class User{
         this.discoverRange = discoverRange;
     }
 
+    public void setBirthDate(Date birthDate){
+        this.birthDate = birthDate;
+    }
 
 }
