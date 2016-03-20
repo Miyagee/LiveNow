@@ -71,7 +71,7 @@
         <Button
             android:layout_width="150dp"
             android:layout_height="wrap_content"
-            android:text="@string/button_Signup"
+            android:text="@string/button_sign_up"
             android:id="@+id/sign_up_button"
             android:layout_below="@+id/passwordField"
             android:layout_centerHorizontal="true"
