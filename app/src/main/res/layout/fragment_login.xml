@@ -11,15 +11,6 @@
         android:layout_height="match_parent"
         android:layout_gravity="center">
 
-        <ImageView
-            android:layout_width="150dp"
-            android:layout_height="150dp"
-            android:id="@+id/logoIcon"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="34dp"
-            android:src="@drawable/logo"
-            android:contentDescription="@string/logo_description" />
 
         <EditText
             android:layout_width="wrap_content"
@@ -28,9 +19,9 @@
             android:ems="10"
             android:id="@+id/login_email"
             android:hint="@string/email_user"
-            android:layout_below="@+id/logoIcon"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="80dp" />
+            android:layout_alignParentTop="true"
+            android:layout_alignStart="@+id/login_password"
+            android:layout_marginTop="250dp" />
 
         <EditText
             android:layout_width="wrap_content"
