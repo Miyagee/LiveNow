@@ -92,6 +92,7 @@ public class RegisterLogin extends AppCompatActivity implements LoginFragment.On
                 Firebase userID = usersRef.child(userKey);
                 userID.setValue(user);
                 Log.d(TAG, "New user added");
+                loginAfterSignUp();
             }
 
             @Override
@@ -198,5 +199,14 @@ public class RegisterLogin extends AppCompatActivity implements LoginFragment.On
                 }
             }
         };
+    }
+
+    public void loginAfterSignUp(){
+        String email = emailField.getText().toString();
+        String password = passField.getText().toString();
+        LoginUser login = new LoginUser();
+        login.loginAuth(email, password);
+        logInSuccess(login.getAuthenticatedUser());
+        ref.addAuthStateListener(mAuthStateListener);
     }
 }
