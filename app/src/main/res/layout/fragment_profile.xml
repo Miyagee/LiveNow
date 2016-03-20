@@ -4,10 +4,71 @@
     android:layout_height="match_parent"
     tools:context="com.now.live.livenow.ProfileFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        />
+        android:id="@+id/profile_fragment">
+
+
+        <ImageView
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:id="@+id/imageView"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="50dp" />
+
+        <TextView
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:text="Name"
+            android:ems="10"
+            android:id="@+id/name_profile"
+            android:layout_marginTop="250dp"
+            android:layout_centerHorizontal="true" />
+
+        <TextView
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:id="@+id/age_profile"
+            android:layout_below="@+id/name_profile"
+            android:layout_centerHorizontal="true"
+            android:text="Age" />
+
+        <TextView
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/gender_profile"
+            android:layout_below="@+id/age_profile"
+            android:layout_centerHorizontal="true"
+            android:layout_alignParentEnd="false"
+            android:layout_alignParentStart="false"
+            android:text="Gender" />
+
+        <TextView
+            android:layout_width="300dp"
+            android:layout_height="100dp"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:ems="10"
+            android:id="@+id/description_profile"
+            android:layout_below="@+id/gender_profile"
+            android:layout_centerHorizontal="true"
+            android:layout_alignParentEnd="false"
+            android:text="Description      sdsdsd         sdfdsfsdfsdfsdfsd sdsdfsdfsdf      " />
+
+        <SeekBar
+            android:layout_width="300dp"
+            android:layout_height="50dp"
+            android:id="@+id/distance_profile"
+            android:layout_below="@+id/description_profile"
+            android:layout_centerHorizontal="true"
+            android:layout_alignParentStart="false"
+            android:layout_alignParentEnd="false"
+            android:indeterminate="false"
+            android:progress="20"
+            android:max="1000" />
+
+    </RelativeLayout>
 
 </FrameLayout>
