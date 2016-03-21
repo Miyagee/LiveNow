@@ -4,10 +4,13 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.SeekBar;
+import android.widget.TextView;
 
 import java.util.Date;
 
@@ -23,20 +26,17 @@ import java.util.Date;
 public class ProfileFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+    private static final String USER = "user";
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    private User user;
 
-    //User data
-    private String profilePicture;
-    private String name;
-    private String gender;
-    private String description;
-    private Date birthDate;
-    private int distance;
+    //User data display
+    private TextView nameView;
+    private TextView genderView;
+    private TextView descriptionView;
+    private TextView ageView;
+    private TextView distanceView;
+    private SeekBar distanceBar;
 
 
 
@@ -50,16 +50,15 @@ public class ProfileFragment extends Fragment {
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
      *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
+     * @param user Parameter 1.
+     *
      * @return A new instance of fragment ProfileFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static ProfileFragment newInstance(String param1, String param2) {
+    public static ProfileFragment newInstance(User user) {
         ProfileFragment fragment = new ProfileFragment();
         Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
+        //args.putParcelable(USER, user);
         fragment.setArguments(args);
         return fragment;
     }
@@ -68,27 +67,33 @@ public class ProfileFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+
         }
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        //TODO insert user data here and picture
 
-
-
-        //Setting stuff
+        //Setting stuff for interaction
         View view = getActivity().getLayoutInflater().inflate(R.layout.fragment_profile,null);
         new DownloadImageTask((ImageView) view.findViewById(R.id.picture_profile))
-                .execute(profilePicture);
+                .execute(user.getPicture());
 
+        //Init textViews
+        nameView = (TextView) view.findViewById(R.id.name_profile);
+        genderView = (TextView) view.findViewById(R.id.gender_profile);
+        ageView = (TextView) view.findViewById(R.id.age_profile);
+        descriptionView = (TextView) view.findViewById(R.id.description_profile);
+        distanceView = (TextView) view.findViewById(R.id.distance_number_profile);
+        distanceBar = (SeekBar) view.findViewById(R.id.distance_profile);
 
+        distanceBar.setEnabled(false);
+        //Setting fields
+        setFields();
 
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_profile, container, false);
+        return view;
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -130,51 +135,26 @@ public class ProfileFragment extends Fragment {
         void onFragmentInteraction(Uri uri);
     }
 
-    public String getProfilePicture() {
-        return profilePicture;
+    public void setUser(User user){
+        this.user = user;
     }
 
-    public void setProfilePicture(String profilePicture) {
-        this.profilePicture = profilePicture;
+    public void setFields(){
+
+        nameView.setText("Name: " + user.getName());
+
+
+        genderView.setText("Gender: " + user.getGender());
+
+        descriptionView.setText("Description: " + user.getDescription());
+
+        //TODO age and stuff needs to be changed and calculated
+        ageView.setText("Age: " + "20");
+
+        //Distance
+        distanceView.setText(Integer.toString(user.getDiscoverRange()));
+        distanceBar.setProgress(user.getDiscoverRange());
     }
 
-    public String getName() {
-        return name;
-    }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getGender() {
-        return gender;
-    }
-
-    public void setGender(String gender) {
-        this.gender = gender;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public Date getBirthDate() {
-        return birthDate;
-    }
-
-    public void setBirthDate(Date birthDate) {
-        this.birthDate = birthDate;
-    }
-
-    public int getDistance() {
-        return distance;
-    }
-
-    public void setDistance(int distance) {
-        this.distance = distance;
-    }
 }

@@ -3,6 +3,8 @@ package com.now.live.livenow;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -32,6 +34,7 @@ public class MainActivity extends AppCompatActivity implements ProfileFragment.O
     private String descriptionUser;
     private Date birthDateUser;
     private int distanceUser;
+    private User user;
 
     //Layout
     private RelativeLayout mainPage;
@@ -75,7 +78,7 @@ public class MainActivity extends AppCompatActivity implements ProfileFragment.O
         userRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot snapshot) {
-                User user = snapshot.getValue(User.class);
+                user = snapshot.getValue(User.class);
                 nameUser = user.getName();
                 pictureUser = user.getPicture();
                 genderUser = user.getGender();
@@ -122,6 +125,9 @@ public class MainActivity extends AppCompatActivity implements ProfileFragment.O
             // Create a new Fragment to be placed in the activity layout
             profileFragment = new ProfileFragment();
 
+            //Maybe bad practice?
+            profileFragment.setUser(user);
+
             // In case this activity was started with special instructions from an
             // Intent, pass the Intent's extras to the fragment as arguments
             profileFragment.setArguments(getIntent().getExtras());
@@ -131,8 +137,16 @@ public class MainActivity extends AppCompatActivity implements ProfileFragment.O
             getSupportFragmentManager().beginTransaction()
                     .add(R.id.fragment_container_main, profileFragment).commit();
 
-
         }
+    }
+
+    public void removeFragment(View view){
+        Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.fragment_container_main);
+        if (fragment != null) {
+            getSupportFragmentManager().beginTransaction().remove(fragment).commit();
+            showMain();
+        }
+
     }
 
     public void hideMain(){
