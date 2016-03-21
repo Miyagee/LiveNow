@@ -63,7 +63,7 @@ public class RegisterLogin extends AppCompatActivity implements LoginFragment.On
         signUpLayout = (RelativeLayout) findViewById(R.id.signUpLayout);
         //logo = (ImageView) findViewById(R.id.logoIcon);
 
-        if (findViewById(R.id.fragment_container) != null) {
+        if (findViewById(R.id.fragment_container_register_login) != null) {
 
             // However, if we're being restored from a previous state,
             // then we don't need to do anything and should return or else
@@ -135,7 +135,7 @@ public class RegisterLogin extends AppCompatActivity implements LoginFragment.On
     public void loginOnClick(View view){
         // Check that the activity is using the layout version with
         // the fragment_container FrameLayout
-        if (findViewById(R.id.fragment_container) != null) {
+        if (findViewById(R.id.fragment_container_register_login) != null) {
             hideSignUp();
             // Create a new Fragment to be placed in the activity layout
             loginFragment = new LoginFragment();
@@ -147,14 +147,14 @@ public class RegisterLogin extends AppCompatActivity implements LoginFragment.On
 
             // Add the fragment to the 'fragment_container' FrameLayout
             getSupportFragmentManager().beginTransaction()
-                    .add(R.id.fragment_container, loginFragment).commit();
+                    .add(R.id.fragment_container_register_login, loginFragment).commit();
 
 
         }
     }
 
     public void cancelOnClick(View view){
-        Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.fragment_container);
+        Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.fragment_container_register_login);
         if (fragment != null) {
             getSupportFragmentManager().beginTransaction().remove(fragment).commit();
             showSignUp();
@@ -201,6 +201,7 @@ public class RegisterLogin extends AppCompatActivity implements LoginFragment.On
         };
     }
 
+    //Login straight after signing up to reduce actions by user
     public void loginAfterSignUp(){
         String email = emailField.getText().toString();
         String password = passField.getText().toString();

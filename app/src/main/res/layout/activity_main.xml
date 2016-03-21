@@ -11,32 +11,61 @@
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="com.now.live.livenow.MainActivity">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Login succes"
-        android:id="@+id/textView2"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="111dp" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/test_db_get_data"
-        android:layout_below="@+id/textView2"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="64dp"
-        />
+        <FrameLayout
+            android:id="@+id/fragment_container_main"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"/>
+    </LinearLayout>
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/logout_button"
-        android:id="@+id/unA"
-        android:onClick="logOut"
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true" />
+   <RelativeLayout
+       android:layout_width="match_parent"
+       android:layout_height="match_parent"
+       android:id="@+id/mainPage"
+       >
+
+       <TextView
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:text="Login succes"
+           android:id="@+id/textView2"
+           android:layout_alignParentTop="true"
+           android:layout_alignParentLeft="true"
+           android:layout_alignParentStart="true"
+           android:layout_marginTop="111dp" />
+
+       <TextView
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:id="@+id/test_db_get_data"
+           android:layout_below="@+id/textView2"
+           android:layout_alignParentLeft="true"
+           android:layout_alignParentStart="true"
+           android:layout_marginTop="64dp"
+           />
+
+       <Button
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:text="@string/logout_button"
+           android:id="@+id/unA"
+           android:onClick="logOut"
+           android:layout_alignParentTop="true"
+           android:layout_alignParentEnd="true" />
+
+       <Button
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:text="Profile"
+           android:id="@+id/button_profile_temp"
+           android:layout_below="@+id/unA"
+           android:layout_alignParentEnd="true"
+           android:onClick="profileTest"/>
+
+   </RelativeLayout>
+
 </RelativeLayout>

@@ -13,8 +13,12 @@ public class User{
     private Date birthDate;
     private String picture;
     private String password;
+    private String description;
+    private String gender;
     private int discoverRange;
     private ArrayList<Observer> groups;
+
+    //Password unnecessary?
 
     public User(){
         //Empty constructor required for firebase to work!!
@@ -48,6 +52,10 @@ public class User{
         this.picture = picture;
     }
 
+    public String getPicture(){
+        return this.picture;
+    }
+
     public void setPassword(String password){
         this.password = password;
     }
@@ -56,8 +64,31 @@ public class User{
         this.discoverRange = discoverRange;
     }
 
+    public int getDiscoverRange(){
+        return this.discoverRange;
+    }
+
     public void setBirthDate(Date birthDate){
         this.birthDate = birthDate;
     }
 
+    public Date getBirthDate(){
+        return this.birthDate;
+    }
+
+    public void setDescription(String description){
+        this.description = description;
+    }
+
+    public String getDescription(){
+        return this.description;
+    }
+
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
 }
