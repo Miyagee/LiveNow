@@ -13,8 +13,17 @@
     <string name="button_sign_up">Sign up</string>
     <string name="logo_description">Logo</string>
     <string name="logout_button">Logout</string>
+
+    <!--Profile res-->
     <string name="edit_profile">Edit Profile</string>
     <string name="distance_text_profile">Distance: </string>
+    <string name="save">Save</string>
+    <string name="profile_pic_desc">Profile picture</string>
+    <string name="birth_date">Birth date:</string>
+    <string name="gender_edit_text">Gender:</string>
+    <string name="male">Male</string>
+    <string name="female">Female</string>
+    <string name="other">Other</string>
 
 
 

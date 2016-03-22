@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="wrap_content">
+    <SeekBar
+        android:layout_width="300dp"
+        android:layout_height="50dp"
+        android:id="@+id/distance_profile"
+        android:indeterminate="false"
+        android:progress="100"
+        android:max="500"
+        android:clickable="false"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/distance_text_profile"
+        android:id="@+id/distance_text_profile"
+        android:textSize="16sp"
+        android:layout_below="@+id/distance_profile"
+        android:layout_alignStart="@+id/distance_profile"
+        android:layout_marginStart="50dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/distance_number_profile"
+        android:layout_alignTop="@+id/distance_text_profile"
+        android:textSize="16sp"
+        android:layout_alignParentStart="false"
+        android:layout_alignParentEnd="false"
+        android:layout_alignEnd="@+id/distance_profile"
+        android:layout_marginRight="75dp" />
+</RelativeLayout>

@@ -64,7 +64,7 @@
            android:id="@+id/button_profile_temp"
            android:layout_below="@+id/unA"
            android:layout_alignParentEnd="true"
-           android:onClick="profileTest"/>
+           android:onClick="profileView"/>
 
    </RelativeLayout>
 

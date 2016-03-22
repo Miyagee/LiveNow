@@ -8,6 +8,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.widget.NumberPicker;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -36,11 +37,14 @@ public class MainActivity extends AppCompatActivity implements ProfileFragment.O
     private int distanceUser;
     private User user;
 
+    private NumberPicker d;
+
     //Layout
     private RelativeLayout mainPage;
 
-    //Fragment
+    //Fragments
     private ProfileFragment profileFragment;
+    private EditProfileFragment editProfileFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,7 +62,6 @@ public class MainActivity extends AppCompatActivity implements ProfileFragment.O
         mainPage = (RelativeLayout) findViewById(R.id.mainPage);
 
         getUserData();
-
 
         //Checks for fragment alive
         if (findViewById(R.id.fragment_container_main) != null) {
@@ -117,11 +120,13 @@ public class MainActivity extends AppCompatActivity implements ProfileFragment.O
 
     }
 
-    public void profileTest(View view){
+    public void profileView(View view){
+        removeFragment(view);
         // Check that the activity is using the layout version with
         // the fragment_container FrameLayout
         if (findViewById(R.id.fragment_container_main) != null) {
             hideMain();
+
             // Create a new Fragment to be placed in the activity layout
             profileFragment = new ProfileFragment();
 
@@ -140,6 +145,31 @@ public class MainActivity extends AppCompatActivity implements ProfileFragment.O
         }
     }
 
+    public void editProfileView(View view){
+        removeFragment(view);
+        // Check that the activity is using the layout version with
+        // the fragment_container FrameLayout
+        if (findViewById(R.id.fragment_container_main) != null) {
+            hideMain();
+
+            // Create a new Fragment to be placed in the activity layout
+            editProfileFragment = new EditProfileFragment();
+
+            //Maybe bad practice?
+            editProfileFragment.setUser(user);
+
+            // In case this activity was started with special instructions from an
+            // Intent, pass the Intent's extras to the fragment as arguments
+            editProfileFragment.setArguments(getIntent().getExtras());
+
+
+            // Add the fragment to the 'fragment_container' FrameLayout
+            getSupportFragmentManager().beginTransaction()
+                    .add(R.id.fragment_container_main, editProfileFragment).commit();
+
+        }
+    }
+
     public void removeFragment(View view){
         Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.fragment_container_main);
         if (fragment != null) {
@@ -150,11 +180,16 @@ public class MainActivity extends AppCompatActivity implements ProfileFragment.O
     }
 
     public void hideMain(){
-        mainPage.setVisibility(View.INVISIBLE);
+        if (mainPage.getVisibility() == View.VISIBLE){
+            mainPage.setVisibility(View.INVISIBLE);
+        }
+
     }
 
     public void showMain(){
-        mainPage.setVisibility(View.VISIBLE);
+        if(mainPage.getVisibility() == View.INVISIBLE){
+            mainPage.setVisibility(View.VISIBLE);
+        }
     }
 
 
