@@ -32,6 +32,15 @@ public class User{
         this.discoverRange = discoverRange;
     }
 
+    public User(String name, String picture, int discoverRange, Date birthDate, String description, String gender){
+        this.name = name;
+        this.picture = picture;
+        this.discoverRange = discoverRange;
+        this.birthDate = birthDate;
+        this.description = description;
+        this.gender = gender;
+    }
+
     public String getEmail(){
         return this.email;
     }

@@ -140,19 +140,20 @@ public class ProfileFragment extends Fragment {
     }
 
     public void setFields(){
+        String distanceConvert = Integer.toString(user.getDiscoverRange()) + " km";
 
-        nameView.setText("Name: " + user.getName());
+        nameView.setText(user.getName());
 
 
-        genderView.setText("Gender: " + user.getGender());
+        genderView.setText(user.getGender());
 
-        descriptionView.setText("Description: " + user.getDescription());
+        descriptionView.setText(user.getDescription());
 
         //TODO age and stuff needs to be changed and calculated
-        ageView.setText("Age: " + "20");
+        ageView.setText("20");
 
         //Distance
-        distanceView.setText(Integer.toString(user.getDiscoverRange()));
+        distanceView.setText(distanceConvert);
         distanceBar.setProgress(user.getDiscoverRange());
     }
 

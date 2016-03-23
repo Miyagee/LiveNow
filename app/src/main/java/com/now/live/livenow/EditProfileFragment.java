@@ -35,6 +35,10 @@ public class EditProfileFragment extends Fragment {
     private EditText descriptionView;
     private TextView distanceView;
     private SeekBar distanceBar;
+    private String checkedValue;
+
+    //Date calculation class
+    private DateCalculations dateCalc;
 
     public EditProfileFragment() {
         // Required empty public constructor
@@ -62,6 +66,14 @@ public class EditProfileFragment extends Fragment {
         distanceBar = (SeekBar) view.findViewById(R.id.distance_profile);
 
         distanceBar.setEnabled(true);
+
+        //adding listener to distance bar
+        distanceBar.setOnSeekBarChangeListener(new distanceSeekBarListener());
+
+        //Date calc
+        dateCalc = new DateCalculations();
+        dateCalc.init();
+
         //Setting fields
         setFields();
 
@@ -69,18 +81,60 @@ public class EditProfileFragment extends Fragment {
         return view;
     }
 
+    private class distanceSeekBarListener implements SeekBar.OnSeekBarChangeListener{
+
+        @Override
+        public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+            String progressText = Integer.toString(progress) + " km";
+            distanceView.setText(progressText);
+        }
+
+        @Override
+        public void onStartTrackingTouch(SeekBar seekBar) {
+
+        }
+
+        @Override
+        public void onStopTrackingTouch(SeekBar seekBar) {
+
+        }
+    }
+
+    public String getCheckedRadioValue(){
+
+        int selectedID = genderGroup.getCheckedRadioButtonId();
+
+        if (selectedID == maleRadio.getId()){
+            checkedValue = maleRadio.getText().toString();
+        } else if (selectedID == femaleRadio.getId()){
+            checkedValue = femaleRadio.getText().toString();
+        }else{
+            checkedValue = otherRadio.getText().toString();
+        }
+        return checkedValue;
+    }
 
 
     public void setUser(User user){
         this.user = user;
     }
 
+    public User getUser(){
+        getFields();
+
+        return this.user;
+    }
+
     public void setFields(){
+        String distanceConvert = Integer.toString(user.getDiscoverRange()) + " km";
 
         nameView.setHint(user.getName());
 
 
-        descriptionView.setHint("Description: ");
+        descriptionView.setHint("Description");
+
+        //TODO make gendergroup already checked from DB
+
 
         //TODO change this to match month and year (feb)
         dayPicker.setMinValue(1);
@@ -96,8 +150,39 @@ public class EditProfileFragment extends Fragment {
         yearPicker.setValue(2016);
 
         //Distance
-        distanceView.setText(Integer.toString(user.getDiscoverRange()) + " km");
+        distanceView.setText(distanceConvert);
         distanceBar.setProgress(user.getDiscoverRange());
     }
+
+
+
+    public void getFields(){
+        String name;
+        String description;
+        int day;
+        int month;
+        int year;
+        int distance;
+        String gender;
+
+        //Getting the fields and applying them to
+        if(!StaticHelperClasses.isEmpty(nameView)){
+            name = nameView.getText().toString();
+        }
+
+        if(!StaticHelperClasses.isEmpty(descriptionView)){
+            description = descriptionView.getText().toString();
+        } else{
+            description = null;
+        }
+
+        if(StaticHelperClasses.checkRadioGroupChecked(genderGroup)){
+            gender = getCheckedRadioValue();
+        }
+
+
+    }
+
+
 
 }

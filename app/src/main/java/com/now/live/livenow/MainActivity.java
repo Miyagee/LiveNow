@@ -28,7 +28,7 @@ public class MainActivity extends AppCompatActivity implements ProfileFragment.O
     private TextView testText;
 
     //User info fields
-    //private String userUid;
+   // private String userUid;
     private String nameUser;
     private String pictureUser;
     private String genderUser;
@@ -37,7 +37,6 @@ public class MainActivity extends AppCompatActivity implements ProfileFragment.O
     private int distanceUser;
     private User user;
 
-    private NumberPicker d;
 
     //Layout
     private RelativeLayout mainPage;
@@ -53,9 +52,9 @@ public class MainActivity extends AppCompatActivity implements ProfileFragment.O
 
         ref = new Firebase("https://live-now.firebaseio.com/");
         userRef = ref.child("users/" + ref.getAuth().getUid()+ "/");
-        Log.d(TAG, ref.getAuth().getUid());
+        //Log.d(TAG, ref.getAuth().getUid());
         //userUid = ref.getAuth().getUid();
-        Log.d(TAG, userRef.toString());
+        //Log.d(TAG, userRef.toString());
 
         testText = (TextView) findViewById(R.id.test_db_get_data);
 
@@ -168,6 +167,15 @@ public class MainActivity extends AppCompatActivity implements ProfileFragment.O
                     .add(R.id.fragment_container_main, editProfileFragment).commit();
 
         }
+    }
+
+    public void saveProfile(View view){
+        //Getting user from fragment_edit_profile
+        user = editProfileFragment.getUser();
+
+        userRef.setValue(user);
+
+        profileView(view);
     }
 
     public void removeFragment(View view){

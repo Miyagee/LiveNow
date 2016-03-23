@@ -31,7 +31,8 @@
                 android:layout_marginTop="250dp"
                 android:layout_centerHorizontal="true"
                 android:textSize="24sp"
-                android:inputType="textCapWords" />
+                android:inputType="textCapWords"
+                android:gravity="center"/>
 
             <include layout="@layout/birthdate_edit"
                 android:layout_width="fill_parent"
@@ -61,7 +62,7 @@
                 android:id="@+id/save_button_profile"
                 android:layout_alignParentTop="true"
                 android:layout_alignParentEnd="true"
-                android:onClick="profileView"/>
+                android:onClick="saveProfile"/>
 
             <EditText
                 android:layout_width="300dp"
