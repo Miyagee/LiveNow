@@ -7,7 +7,8 @@
     <ScrollView
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:id="@+id/scroll_profile_edit" >
+        android:id="@+id/scroll_profile_edit"
+        android:layout_marginBottom="50dp">
 
         <RelativeLayout
             android:layout_width="match_parent"

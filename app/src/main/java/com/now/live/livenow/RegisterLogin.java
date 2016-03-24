@@ -22,7 +22,7 @@ import com.firebase.client.FirebaseError;
 
 import java.util.Map;
 
-public class RegisterLogin extends AppCompatActivity implements LoginFragment.OnFragmentInteractionListener {
+public class RegisterLogin extends AppCompatActivity{
 
     private static final String TAG = "Now";
 
@@ -76,12 +76,12 @@ public class RegisterLogin extends AppCompatActivity implements LoginFragment.On
     }
 
     public void getInfo(String name, String password, String email){
-        user = new User(email, name, password, "Picture", 20);
+        user = new User(email, name, password, "https://pixabay.com/static/uploads/photo/2016/02/29/20/17/almond-blossom-1229138_960_720.jpg", 20);
         setEmail(email);
         setPassword(password);
     }
 
-
+    //TODO user exists
     public void addNewUser(View view){
         getInfo(nameField.getText().toString(), passField.getText().toString(), emailField.getText().toString());
 
@@ -125,6 +125,7 @@ public class RegisterLogin extends AppCompatActivity implements LoginFragment.On
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
     }
+
     //Auto log in if token exists
     public void autoLogIn(){
         if (ref.getAuth() != null){
@@ -162,10 +163,6 @@ public class RegisterLogin extends AppCompatActivity implements LoginFragment.On
 
     }
 
-    @Override
-    public void onFragmentInteraction(Uri uri) {
-
-    }
 
     public void hideSignUp(){
         signUpLayout.setVisibility(View.INVISIBLE);

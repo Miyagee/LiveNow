@@ -3,6 +3,8 @@ package com.now.live.livenow;
 import android.widget.EditText;
 import android.widget.RadioGroup;
 
+import java.util.Date;
+
 /**
  * Created by jieli on 23.03.16.
  */
@@ -25,6 +27,14 @@ public class StaticHelperClasses {
             return  false;
         }else{
             return true;
+        }
+    }
+
+    public static boolean isDateNull(Date d){
+        if (d==null){
+            return true;
+        }else{
+            return false;
         }
     }
 

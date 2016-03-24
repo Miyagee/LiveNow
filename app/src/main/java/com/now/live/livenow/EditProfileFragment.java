@@ -14,6 +14,9 @@ import android.widget.RadioGroup;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
+import java.util.Calendar;
+import java.util.Date;
+
 
 /**
  * A simple {@link Fragment} subclass.
@@ -69,10 +72,18 @@ public class EditProfileFragment extends Fragment {
 
         //adding listener to distance bar
         distanceBar.setOnSeekBarChangeListener(new distanceSeekBarListener());
+        monthPicker.setOnValueChangedListener(new monthNumPicker());
+        yearPicker.setOnValueChangedListener(new yearNumPicker());
 
         //Date calc
         dateCalc = new DateCalculations();
         dateCalc.init();
+        if(!StaticHelperClasses.isDateNull(user.getBirthDate())){
+            dateCalc.setBirth(user.getBirthDate());
+            dateCalc.setBirthDay();
+            dateCalc.setBirthMonth();
+            dateCalc.setBirthYear();
+        }
 
         //Setting fields
         setFields();
@@ -100,6 +111,35 @@ public class EditProfileFragment extends Fragment {
         }
     }
 
+    private class monthNumPicker implements NumberPicker.OnValueChangeListener{
+
+        @Override
+        public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
+            //Check for months and days
+            if (newVal == 2 && dateCalc.isLeapYear(yearPicker.getValue())){
+                dayPicker.setMaxValue(dateCalc.setFebMaxDate(true));
+            }else if(newVal == 2 && !dateCalc.isLeapYear(yearPicker.getValue())){
+                dayPicker.setMaxValue(dateCalc.setFebMaxDate(false));
+            }else if(dateCalc.checkThirty(newVal)){
+                dayPicker.setMaxValue(30);
+            }else if(dateCalc.checkThirtyOne(newVal)){
+                dayPicker.setMaxValue(31);
+            }
+        }
+    }
+
+    private class yearNumPicker implements NumberPicker.OnValueChangeListener{
+
+        @Override
+        public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
+            if (dateCalc.isLeapYear(newVal) && monthPicker.getValue() == 2){
+                dayPicker.setMaxValue(dateCalc.setFebMaxDate(true));
+            }else if(!dateCalc.isLeapYear(newVal) && monthPicker.getValue() == 2){
+                dayPicker.setMaxValue(dateCalc.setFebMaxDate(false));
+            }
+        }
+    }
+
     public String getCheckedRadioValue(){
 
         int selectedID = genderGroup.getCheckedRadioButtonId();
@@ -114,6 +154,22 @@ public class EditProfileFragment extends Fragment {
         return checkedValue;
     }
 
+    public void autoCheckRadioButton(String userGender){
+        if (userGender.equals("Male")){
+            maleRadio.setChecked(true);
+            femaleRadio.setChecked(false);
+            otherRadio.setChecked(false);
+        }else if(userGender.equals("Female")){
+            maleRadio.setChecked(false);
+            femaleRadio.setChecked(true);
+            otherRadio.setChecked(false);
+        }else{
+            maleRadio.setChecked(false);
+            femaleRadio.setChecked(false);
+            otherRadio.setChecked(true);
+        }
+    }
+
 
     public void setUser(User user){
         this.user = user;
@@ -125,29 +181,53 @@ public class EditProfileFragment extends Fragment {
         return this.user;
     }
 
+    public void setNumPickerMaxValDB(DateCalculations dateCalc){
+        if(dateCalc.checkThirty(dateCalc.getBirthMonth())){
+            dayPicker.setMaxValue(30);
+        }else if(dateCalc.checkThirtyOne(dateCalc.getBirthMonth())){
+            dayPicker.setMaxValue(31);
+        }else{
+            if(dateCalc.isLeapYear(dateCalc.getBirthYear())){
+                dayPicker.setMaxValue(dateCalc.setFebMaxDate(true));
+            }else{
+                dayPicker.setMaxValue(dateCalc.setFebMaxDate(false));
+            }
+        }
+    }
+
     public void setFields(){
         String distanceConvert = Integer.toString(user.getDiscoverRange()) + " km";
 
-        nameView.setHint(user.getName());
+        nameView.setText(user.getName());
 
+        if(StaticHelperClasses.checkNull(user.getDescription())){
+            descriptionView.setHint("Description");
+        }else{
+            descriptionView.setText(user.getDescription());
+        }
 
-        descriptionView.setHint("Description");
+        if(!StaticHelperClasses.checkNull(user.getGender())){
+            autoCheckRadioButton(user.getGender());
+        }
 
-        //TODO make gendergroup already checked from DB
-
-
-        //TODO change this to match month and year (feb)
-        dayPicker.setMinValue(1);
-        dayPicker.setMaxValue(31);
-
-        //Months
+        //Not going to change
         monthPicker.setMinValue(1);
         monthPicker.setMaxValue(12);
-
-        //Year TODO need to change max value to current date.year
+        dayPicker.setMinValue(1);
         yearPicker.setMinValue(1900);
-        yearPicker.setMaxValue(2016);
-        yearPicker.setValue(2016);
+        yearPicker.setMaxValue(dateCalc.getCurrentYear());
+
+        //Checks based on date from DB
+        if(StaticHelperClasses.isDateNull(user.getBirthDate())){
+            dayPicker.setMaxValue(31);
+            monthPicker.setValue(1);
+            yearPicker.setValue(dateCalc.getCurrentYear());
+        }else{
+            setNumPickerMaxValDB(dateCalc);
+            dayPicker.setValue(dateCalc.getBirthDay());
+            monthPicker.setValue(dateCalc.getBirthMonth());
+            yearPicker.setValue(dateCalc.getBirthYear());
+        }
 
         //Distance
         distanceView.setText(distanceConvert);
@@ -162,12 +242,23 @@ public class EditProfileFragment extends Fragment {
         int day;
         int month;
         int year;
+        Calendar tempBirth = Calendar.getInstance();
+        Date birth;
         int distance;
         String gender;
+        String picture;
 
         //Getting the fields and applying them to
         if(!StaticHelperClasses.isEmpty(nameView)){
             name = nameView.getText().toString();
+        }else{
+            name = null;
+        }
+
+        if(!StaticHelperClasses.checkNull(user.getPicture())){
+            picture = user.getPicture();
+        }else{
+            picture = "https://pixabay.com/static/uploads/photo/2016/02/29/20/17/almond-blossom-1229138_960_720.jpg";
         }
 
         if(!StaticHelperClasses.isEmpty(descriptionView)){
@@ -178,8 +269,18 @@ public class EditProfileFragment extends Fragment {
 
         if(StaticHelperClasses.checkRadioGroupChecked(genderGroup)){
             gender = getCheckedRadioValue();
+        }else{
+            gender = null;
         }
 
+        day = dayPicker.getValue();
+        month = monthPicker.getValue();
+        year = yearPicker.getValue();
+        tempBirth.set(year, month-1, day);
+        birth = new Date(tempBirth.getTimeInMillis());
+        distance = distanceBar.getProgress();
+
+        user = new User(name,picture, distance, birth, description, gender);
 
     }
 

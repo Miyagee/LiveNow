@@ -20,6 +20,7 @@ public class LoginUser {
     //Firebase usersRef = ref.child("users");
     private AuthData mAuthData;
 
+    //TODO add error username or password
     public void loginAuth(String email, String password){
         ref.authWithPassword(email, password, new Firebase.AuthResultHandler() {
             @Override

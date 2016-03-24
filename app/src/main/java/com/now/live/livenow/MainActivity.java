@@ -19,7 +19,7 @@ import com.firebase.client.ValueEventListener;
 
 import java.util.Date;
 
-public class MainActivity extends AppCompatActivity implements ProfileFragment.OnFragmentInteractionListener{
+public class MainActivity extends AppCompatActivity{
 
     private static final String TAG = "Now";
 
@@ -111,12 +111,6 @@ public class MainActivity extends AppCompatActivity implements ProfileFragment.O
         ref.unauth();
         Intent intent = new Intent(this, RegisterLogin.class);
         startActivity(intent);
-    }
-
-
-    @Override
-    public void onFragmentInteraction(Uri uri) {
-
     }
 
     public void profileView(View view){
