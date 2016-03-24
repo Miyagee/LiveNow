@@ -10,7 +10,7 @@ import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
+//import android.widget.Button;
 import android.widget.EditText;
 import android.util.Log;
 import android.widget.RelativeLayout;
@@ -22,7 +22,7 @@ import com.firebase.client.FirebaseError;
 
 import java.util.Map;
 
-public class RegisterLogin extends AppCompatActivity implements LoginFragment.OnFragmentInteractionListener {
+public class RegisterLogin extends AppCompatActivity{
 
     private static final String TAG = "Now";
 
@@ -63,7 +63,7 @@ public class RegisterLogin extends AppCompatActivity implements LoginFragment.On
         signUpLayout = (RelativeLayout) findViewById(R.id.signUpLayout);
         //logo = (ImageView) findViewById(R.id.logoIcon);
 
-        if (findViewById(R.id.fragment_container) != null) {
+        if (findViewById(R.id.fragment_container_register_login) != null) {
 
             // However, if we're being restored from a previous state,
             // then we don't need to do anything and should return or else
@@ -76,12 +76,12 @@ public class RegisterLogin extends AppCompatActivity implements LoginFragment.On
     }
 
     public void getInfo(String name, String password, String email){
-        user = new User(email, name, password, "Picture", 20);
+        user = new User(email, name, password, "https://pixabay.com/static/uploads/photo/2016/02/29/20/17/almond-blossom-1229138_960_720.jpg", 20);
         setEmail(email);
         setPassword(password);
     }
 
-
+    //TODO user exists
     public void addNewUser(View view){
         getInfo(nameField.getText().toString(), passField.getText().toString(), emailField.getText().toString());
 
@@ -92,6 +92,7 @@ public class RegisterLogin extends AppCompatActivity implements LoginFragment.On
                 Firebase userID = usersRef.child(userKey);
                 userID.setValue(user);
                 Log.d(TAG, "New user added");
+                loginAfterSignUp();
             }
 
             @Override
@@ -124,6 +125,7 @@ public class RegisterLogin extends AppCompatActivity implements LoginFragment.On
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
     }
+
     //Auto log in if token exists
     public void autoLogIn(){
         if (ref.getAuth() != null){
@@ -134,7 +136,7 @@ public class RegisterLogin extends AppCompatActivity implements LoginFragment.On
     public void loginOnClick(View view){
         // Check that the activity is using the layout version with
         // the fragment_container FrameLayout
-        if (findViewById(R.id.fragment_container) != null) {
+        if (findViewById(R.id.fragment_container_register_login) != null) {
             hideSignUp();
             // Create a new Fragment to be placed in the activity layout
             loginFragment = new LoginFragment();
@@ -146,14 +148,14 @@ public class RegisterLogin extends AppCompatActivity implements LoginFragment.On
 
             // Add the fragment to the 'fragment_container' FrameLayout
             getSupportFragmentManager().beginTransaction()
-                    .add(R.id.fragment_container, loginFragment).commit();
+                    .add(R.id.fragment_container_register_login, loginFragment).commit();
 
 
         }
     }
 
     public void cancelOnClick(View view){
-        Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.fragment_container);
+        Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.fragment_container_register_login);
         if (fragment != null) {
             getSupportFragmentManager().beginTransaction().remove(fragment).commit();
             showSignUp();
@@ -161,10 +163,6 @@ public class RegisterLogin extends AppCompatActivity implements LoginFragment.On
 
     }
 
-    @Override
-    public void onFragmentInteraction(Uri uri) {
-
-    }
 
     public void hideSignUp(){
         signUpLayout.setVisibility(View.INVISIBLE);
@@ -198,5 +196,15 @@ public class RegisterLogin extends AppCompatActivity implements LoginFragment.On
                 }
             }
         };
+    }
+
+    //Login straight after signing up to reduce actions by user
+    public void loginAfterSignUp(){
+        String email = emailField.getText().toString();
+        String password = passField.getText().toString();
+        LoginUser login = new LoginUser();
+        login.loginAuth(email, password);
+        logInSuccess(login.getAuthenticatedUser());
+        ref.addAuthStateListener(mAuthStateListener);
     }
 }
