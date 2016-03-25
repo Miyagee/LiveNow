@@ -52,7 +52,7 @@ public class EditProfileFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = getActivity().getLayoutInflater().inflate(R.layout.fragment_edit_profile,null);
-        new DownloadImageTask((ImageView) view.findViewById(R.id.picture_profile_edit))
+        new DownloadImageTask((ImageView) view.findViewById(R.id.picture_profile))
                 .execute(user.getPicture());
 
         //Init components

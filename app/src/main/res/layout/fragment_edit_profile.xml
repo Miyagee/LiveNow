@@ -16,14 +16,11 @@
             android:id="@+id/profile_edit_fragment">
 
 
-            <ImageView
-                android:layout_width="175dp"
-                android:layout_height="175dp"
-                android:id="@+id/picture_profile_edit"
-                android:layout_alignParentTop="true"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="70dp"
-                android:contentDescription="@string/profile_pic_desc"/>
+            <include layout="@layout/profile_image"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/include_profile_image"
+                android:layout_marginTop="70dp"></include>
 
             <EditText
                 android:layout_width="200dp"
