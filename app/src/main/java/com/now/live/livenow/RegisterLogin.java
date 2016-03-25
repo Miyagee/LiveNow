@@ -76,7 +76,7 @@ public class RegisterLogin extends AppCompatActivity{
     }
 
     public void getInfo(String name, String password, String email){
-        user = new User(email, name, password, "https://pixabay.com/static/uploads/photo/2016/02/29/20/17/almond-blossom-1229138_960_720.jpg", 20);
+        user = new User(email, name, password, "https://pixabay.com/static/uploads/photo/2013/07/18/10/57/owl-163574_960_720.jpg", 20);
         setEmail(email);
         setPassword(password);
     }

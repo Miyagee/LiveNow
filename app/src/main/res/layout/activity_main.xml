@@ -67,6 +67,15 @@
            android:layout_alignParentEnd="true"
            android:onClick="profileView"/>
 
+       <Button
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:text="Friends"
+           android:id="@+id/button_process_friends_temp"
+           android:layout_below="@+id/button_profile_temp"
+           android:layout_alignParentEnd="true"
+           android:onClick="processFriendsID"/>
+
    </RelativeLayout>
 
 </RelativeLayout>

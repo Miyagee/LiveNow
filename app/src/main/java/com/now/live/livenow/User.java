@@ -2,6 +2,7 @@ package com.now.live.livenow;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by jieli on 09.02.16.
@@ -16,7 +17,8 @@ public class User{
     private String description;
     private String gender;
     private int discoverRange;
-    private ArrayList<Observer> groups;
+    private List<String> groups;
+    private FriendList friendList;
 
     //Password unnecessary?
 
@@ -30,6 +32,7 @@ public class User{
         this.picture = picture;
         this.password = password;
         this.discoverRange = discoverRange;
+        this.friendList = new FriendList();
     }
 
     public User(String name, String picture, int discoverRange, Date birthDate, String description, String gender){
@@ -99,5 +102,13 @@ public class User{
 
     public void setGender(String gender) {
         this.gender = gender;
+    }
+
+    public void setFriendList(FriendList friendList){
+        this.friendList = friendList;
+    }
+
+    public FriendList getFriendList(){
+        return this.friendList;
     }
 }
