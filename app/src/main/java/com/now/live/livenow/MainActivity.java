@@ -121,7 +121,7 @@ public class MainActivity extends AppCompatActivity{
 
     }
 
-    //TODO SHOULD RUN IN OWN FRAGMENT AND MAKE ADD FRIEND AND REMOVE FUNCTIONS
+    //TODO SHOULD RUN IN OWN FRAGMENT AND MAKE ADD FRIEND AND REMOVE FUNCTIONS, might change friends name to (key, value)
     //Also add if null
     public void processFriendsID(View view){
         Firebase tempBase;
@@ -140,7 +140,7 @@ public class MainActivity extends AppCompatActivity{
 
         for(String friendID: friendsID){
             tempBase = ref.child("users/" + friendID + "/name");
-            tempBase.addValueEventListener(fnm);
+            tempBase.addListenerForSingleValueEvent(fnm);
         }
         //TODO remove listeners after usage when friends menu closes
 

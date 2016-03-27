@@ -4,6 +4,7 @@ package com.now.live.livenow;
  * Created by Jie Li on 14.03.16.
  */
 
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.support.v4.app.Fragment;
@@ -14,6 +15,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.util.Log;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 //import android.widget.ImageView;
 
 import com.firebase.client.AuthData;
@@ -40,12 +42,17 @@ public class RegisterLogin extends AppCompatActivity{
     private RelativeLayout signUpLayout;
     private Firebase.AuthStateListener mAuthStateListener;
     private LoginFragment loginFragment;
+    private Context mContext;
+    private String errorMessage;
+    private int errorDuration;
+    private Toast errorNotifier;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Firebase.setAndroidContext(this);
         setContentView(R.layout.activity_register_login);
+        mContext = getApplicationContext();
 
         //Init firebase URL
         ref = new Firebase("https://live-now.firebaseio.com/");
@@ -98,7 +105,30 @@ public class RegisterLogin extends AppCompatActivity{
             @Override
             public void onError(FirebaseError firebaseError) {
                 // there was an error
-                Log.e(TAG, "Something went wrong");
+                switch (firebaseError.getCode()) {
+                    case FirebaseError.EMAIL_TAKEN:
+                        // handle a non existing user
+                        errorMessage = "E-mail is taken";
+                        errorDuration = Toast.LENGTH_SHORT;
+                        errorNotifier = Toast.makeText(mContext, errorMessage, errorDuration);
+                        errorNotifier.show();
+                        break;
+                    case FirebaseError.NETWORK_ERROR:
+                        // handle an invalid password
+                        errorMessage = "Error connecting to server, make sure you are connected to the web";
+                        errorDuration = Toast.LENGTH_SHORT;
+                        errorNotifier = Toast.makeText(mContext, errorMessage, errorDuration);
+                        errorNotifier.show();
+                        break;
+
+                    default:
+                        // handle other errors
+                        errorMessage = "Something went wrong";
+                        errorDuration = Toast.LENGTH_SHORT;
+                        errorNotifier = Toast.makeText(mContext, errorMessage, errorDuration);
+                        errorNotifier.show();
+                        break;
+                }
             }
         });
 
@@ -176,7 +206,7 @@ public class RegisterLogin extends AppCompatActivity{
     public void authenticateUserLogin(View view){
         String email = loginFragment.getEmail();
         String password = loginFragment.getPassword();
-        LoginUser login = new LoginUser();
+        LoginUser login = new LoginUser(getContext());
         login.loginAuth(email, password);
         logInSuccess(login.getAuthenticatedUser());
         ref.addAuthStateListener(mAuthStateListener);
@@ -202,9 +232,13 @@ public class RegisterLogin extends AppCompatActivity{
     public void loginAfterSignUp(){
         String email = emailField.getText().toString();
         String password = passField.getText().toString();
-        LoginUser login = new LoginUser();
+        LoginUser login = new LoginUser(getContext());
         login.loginAuth(email, password);
         logInSuccess(login.getAuthenticatedUser());
         ref.addAuthStateListener(mAuthStateListener);
+    }
+
+    public Context getContext(){
+        return mContext;
     }
 }
