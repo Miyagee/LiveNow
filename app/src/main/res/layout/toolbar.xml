@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center_horizontal"
+    >
+
+    <ImageButton
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:id="@+id/home_button"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:contentDescription="@string/toolbar_home"
+        android:layout_marginTop="50dp"
+        android:background="#0000"
+        android:onClick="removeFragment"/>
+
+    <ImageButton
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:id="@+id/calendar_button"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:contentDescription="@string/toolbar_list"
+        android:layout_marginTop="50dp"
+        android:background="#0000"/>
+
+    <ImageButton
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:id="@+id/activity_create_button"
+        android:layout_marginTop="0dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:contentDescription="@string/toolbar_create"
+        android:layout_marginBottom="0dp"
+        android:paddingBottom="5dp"
+        android:background="#0000"/>
+
+    <ImageButton
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:id="@+id/social_button"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:contentDescription="@string/toolbar_social"
+        android:layout_marginTop="50dp"
+        android:background="#0000"/>
+
+    <ImageButton
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:id="@+id/profile_button"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:contentDescription="@string/toolbar_profile"
+        android:layout_marginTop="50dp"
+        android:background="#0000"
+        android:onClick="profileView"/>
+
+</LinearLayout>

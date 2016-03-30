@@ -6,6 +6,7 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 
 import com.firebase.client.DataSnapshot;
@@ -40,6 +41,11 @@ public class MainActivity extends AppCompatActivity{
     private List<String> friendsID;
     private List<String> friendsName;
     private User user;
+    private ImageButton homeButton;
+    private ImageButton listButton;
+    private ImageButton createButton;
+    private ImageButton socialButton;
+    private ImageButton profileButton;
 
     //Used to iterate through users to get name
     private String nameFriend;
@@ -68,6 +74,19 @@ public class MainActivity extends AppCompatActivity{
 
         getUserData();
         getUserFriendList();
+
+        //Toolbar
+        homeButton = (ImageButton) findViewById(R.id.home_button);
+        listButton = (ImageButton) findViewById(R.id.calendar_button);
+        createButton = (ImageButton) findViewById(R.id.activity_create_button);
+        socialButton = (ImageButton) findViewById(R.id.social_button);
+        profileButton = (ImageButton) findViewById(R.id.profile_button);
+
+        homeButton.setImageResource(R.drawable.toolbar_home_selected);
+        listButton.setImageResource(R.drawable.toolbar_calendar);
+        createButton.setImageResource(R.drawable.toolbar_create);
+        socialButton.setImageResource(R.drawable.toolbar_groups);
+        profileButton.setImageResource(R.drawable.toolbar_friends);
 
         //Checks for fragment alive
         if (findViewById(R.id.fragment_container_main) != null) {
@@ -163,6 +182,7 @@ public class MainActivity extends AppCompatActivity{
         // the fragment_container FrameLayout
         if (findViewById(R.id.fragment_container_main) != null) {
             hideMain();
+            setSelected("profile");
 
             // Create a new Fragment to be placed in the activity layout
             profileFragment = new ProfileFragment();
@@ -188,6 +208,7 @@ public class MainActivity extends AppCompatActivity{
         // the fragment_container FrameLayout
         if (findViewById(R.id.fragment_container_main) != null) {
             hideMain();
+            setSelected("profile");
 
             // Create a new Fragment to be placed in the activity layout
             editProfileFragment = new EditProfileFragment();
@@ -226,6 +247,8 @@ public class MainActivity extends AppCompatActivity{
         if (fragment != null) {
             getSupportFragmentManager().beginTransaction().remove(fragment).commit();
             showMain();
+
+
         }
 
     }
@@ -240,8 +263,44 @@ public class MainActivity extends AppCompatActivity{
     public void showMain(){
         if(mainPage.getVisibility() == View.INVISIBLE){
             mainPage.setVisibility(View.VISIBLE);
+            setSelected("home");
         }
     }
 
+    public void setSelected(String selected){
+        switch(selected){
+            case "home":
+                homeButton.setImageResource(R.drawable.toolbar_home_selected);
+                listButton.setImageResource(R.drawable.toolbar_calendar);
+                socialButton.setImageResource(R.drawable.toolbar_groups);
+                profileButton.setImageResource(R.drawable.toolbar_friends);
+                break;
+            case "list":
+                homeButton.setImageResource(R.drawable.toolbar_home);
+                listButton.setImageResource(R.drawable.toolbar_calendar_selected);
+                socialButton.setImageResource(R.drawable.toolbar_groups);
+                profileButton.setImageResource(R.drawable.toolbar_friends);
+                break;
+            case "social":
+                homeButton.setImageResource(R.drawable.toolbar_home);
+                listButton.setImageResource(R.drawable.toolbar_calendar);
+                socialButton.setImageResource(R.drawable.toolbar_groups_selected);
+                profileButton.setImageResource(R.drawable.toolbar_friends);
+                break;
+            case "profile":
+                homeButton.setImageResource(R.drawable.toolbar_home);
+                listButton.setImageResource(R.drawable.toolbar_calendar);
+                socialButton.setImageResource(R.drawable.toolbar_groups);
+                profileButton.setImageResource(R.drawable.toolbar_friends_selected);
+                break;
+            default:
+                homeButton.setImageResource(R.drawable.toolbar_home_selected);
+                listButton.setImageResource(R.drawable.toolbar_calendar);
+                socialButton.setImageResource(R.drawable.toolbar_groups);
+                profileButton.setImageResource(R.drawable.toolbar_friends);
+                break;
+        }
+
+    }
 
 }

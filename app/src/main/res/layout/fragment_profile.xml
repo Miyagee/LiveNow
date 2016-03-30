@@ -98,6 +98,11 @@
                 android:layout_below="@+id/description_profile"
                 android:layout_alignEnd="@+id/edit_button_profile"></include>
 
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:layout_below="@+id/include_distance"/>
+
             <Button
                 android:layout_width="120dp"
                 android:layout_height="wrap_content"
@@ -109,13 +114,5 @@
 
         </RelativeLayout>
     </ScrollView>
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Home"
-        android:id="@+id/button2"
-        android:layout_gravity="center_horizontal|bottom"
-        android:onClick="removeFragment"/>
 
 </FrameLayout>
