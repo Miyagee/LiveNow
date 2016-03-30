@@ -1,23 +1,26 @@
 package com.now.live.livenow;
 
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
-import android.widget.NumberPicker;
+import android.widget.ImageButton;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
 
 import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
+import com.firebase.client.GenericTypeIndicator;
 import com.firebase.client.ValueEventListener;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
+import java.util.Iterator;
+import java.util.List;
+import java.util.ListIterator;
 
 public class MainActivity extends AppCompatActivity{
 
@@ -25,17 +28,27 @@ public class MainActivity extends AppCompatActivity{
 
     Firebase ref;
     Firebase userRef;
-    private TextView testText;
 
     //User info fields
-   // private String userUid;
+    private String userUid;
     private String nameUser;
     private String pictureUser;
     private String genderUser;
     private String descriptionUser;
     private Date birthDateUser;
     private int distanceUser;
+    private FriendList friendListData;
+    private List<String> friendsID;
+    private List<String> friendsName;
     private User user;
+    private ImageButton homeButton;
+    private ImageButton listButton;
+    private ImageButton createButton;
+    private ImageButton socialButton;
+    private ImageButton profileButton;
+
+    //Used to iterate through users to get name
+    private String nameFriend;
 
 
     //Layout
@@ -51,16 +64,29 @@ public class MainActivity extends AppCompatActivity{
         setContentView(R.layout.activity_main);
 
         ref = new Firebase("https://live-now.firebaseio.com/");
-        userRef = ref.child("users/" + ref.getAuth().getUid()+ "/");
+        userRef = ref.child("users/" + ref.getAuth().getUid() + "/");
         //Log.d(TAG, ref.getAuth().getUid());
-        //userUid = ref.getAuth().getUid();
+        userUid = ref.getAuth().getUid();
+        friendsName = new ArrayList<>();
         //Log.d(TAG, userRef.toString());
-
-        testText = (TextView) findViewById(R.id.test_db_get_data);
 
         mainPage = (RelativeLayout) findViewById(R.id.mainPage);
 
         getUserData();
+        getUserFriendList();
+
+        //Toolbar
+        homeButton = (ImageButton) findViewById(R.id.home_button);
+        listButton = (ImageButton) findViewById(R.id.calendar_button);
+        createButton = (ImageButton) findViewById(R.id.activity_create_button);
+        socialButton = (ImageButton) findViewById(R.id.social_button);
+        profileButton = (ImageButton) findViewById(R.id.profile_button);
+
+        homeButton.setImageResource(R.drawable.toolbar_home_selected);
+        listButton.setImageResource(R.drawable.toolbar_calendar);
+        createButton.setImageResource(R.drawable.toolbar_create);
+        socialButton.setImageResource(R.drawable.toolbar_groups);
+        profileButton.setImageResource(R.drawable.toolbar_friends);
 
         //Checks for fragment alive
         if (findViewById(R.id.fragment_container_main) != null) {
@@ -81,16 +107,9 @@ public class MainActivity extends AppCompatActivity{
             @Override
             public void onDataChange(DataSnapshot snapshot) {
                 user = snapshot.getValue(User.class);
-                nameUser = user.getName();
-                pictureUser = user.getPicture();
-                genderUser = user.getGender();
-                descriptionUser = user.getDescription();
-                birthDateUser = user.getBirthDate();
-                distanceUser = user.getDiscoverRange();
 
+                friendListData = user.getFriendList();
 
-                //Test
-                setTestText();
             }
 
             @Override
@@ -101,10 +120,54 @@ public class MainActivity extends AppCompatActivity{
 
     }
 
-    //test function
-    public void setTestText(){
-        testText.setText(nameUser + "\n" + pictureUser + "\n" + genderUser + "\n" + descriptionUser + "\n" + birthDateUser + "\n" + distanceUser);
+    public void getUserFriendList(){
+        Firebase friendListRef = userRef.child("friendList/users");
+        friendListRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot snapshot) {
+                GenericTypeIndicator<List<String>> t = new GenericTypeIndicator<List<String>>() {
+                };
+                friendsID = snapshot.getValue(t);
+                System.out.println(friendsID);
+            }
+
+            @Override
+            public void onCancelled(FirebaseError firebaseError) {
+                System.out.println(firebaseError);
+            }
+
+        });
+
     }
+
+    //TODO SHOULD RUN IN OWN FRAGMENT AND MAKE ADD FRIEND AND REMOVE FUNCTIONS, might change friends name to (key, value)
+    //Also add if null
+    public void processFriendsID(View view){
+        Firebase tempBase;
+        ValueEventListener fnm = new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                nameFriend = dataSnapshot.getValue().toString();
+                friendsName.add(nameFriend);
+            }
+
+            @Override
+            public void onCancelled(FirebaseError firebaseError) {
+
+            }
+        };
+
+        for(String friendID: friendsID){
+            tempBase = ref.child("users/" + friendID + "/name");
+            tempBase.addListenerForSingleValueEvent(fnm);
+        }
+        //TODO remove listeners after usage when friends menu closes
+
+        System.out.println(friendsName);
+
+    }
+    //-----------------------------------------------------------
+
 
     //Log out button
     public void logOut(View view){
@@ -119,6 +182,7 @@ public class MainActivity extends AppCompatActivity{
         // the fragment_container FrameLayout
         if (findViewById(R.id.fragment_container_main) != null) {
             hideMain();
+            setSelected("profile");
 
             // Create a new Fragment to be placed in the activity layout
             profileFragment = new ProfileFragment();
@@ -144,6 +208,7 @@ public class MainActivity extends AppCompatActivity{
         // the fragment_container FrameLayout
         if (findViewById(R.id.fragment_container_main) != null) {
             hideMain();
+            setSelected("profile");
 
             // Create a new Fragment to be placed in the activity layout
             editProfileFragment = new EditProfileFragment();
@@ -167,7 +232,12 @@ public class MainActivity extends AppCompatActivity{
         //Getting user from fragment_edit_profile
         user = editProfileFragment.getUser();
 
-        userRef.setValue(user);
+        userRef.child("name").setValue(user.getName());
+        userRef.child("gender").setValue(user.getGender());
+        userRef.child("birthDate").setValue(user.getBirthDate());
+        userRef.child("discoverRange").setValue(user.getDiscoverRange());
+        userRef.child("description").setValue(user.getDescription());
+        userRef.child("picture").setValue(user.getPicture());
 
         profileView(view);
     }
@@ -177,6 +247,8 @@ public class MainActivity extends AppCompatActivity{
         if (fragment != null) {
             getSupportFragmentManager().beginTransaction().remove(fragment).commit();
             showMain();
+
+
         }
 
     }
@@ -191,8 +263,44 @@ public class MainActivity extends AppCompatActivity{
     public void showMain(){
         if(mainPage.getVisibility() == View.INVISIBLE){
             mainPage.setVisibility(View.VISIBLE);
+            setSelected("home");
         }
     }
 
+    public void setSelected(String selected){
+        switch(selected){
+            case "home":
+                homeButton.setImageResource(R.drawable.toolbar_home_selected);
+                listButton.setImageResource(R.drawable.toolbar_calendar);
+                socialButton.setImageResource(R.drawable.toolbar_groups);
+                profileButton.setImageResource(R.drawable.toolbar_friends);
+                break;
+            case "list":
+                homeButton.setImageResource(R.drawable.toolbar_home);
+                listButton.setImageResource(R.drawable.toolbar_calendar_selected);
+                socialButton.setImageResource(R.drawable.toolbar_groups);
+                profileButton.setImageResource(R.drawable.toolbar_friends);
+                break;
+            case "social":
+                homeButton.setImageResource(R.drawable.toolbar_home);
+                listButton.setImageResource(R.drawable.toolbar_calendar);
+                socialButton.setImageResource(R.drawable.toolbar_groups_selected);
+                profileButton.setImageResource(R.drawable.toolbar_friends);
+                break;
+            case "profile":
+                homeButton.setImageResource(R.drawable.toolbar_home);
+                listButton.setImageResource(R.drawable.toolbar_calendar);
+                socialButton.setImageResource(R.drawable.toolbar_groups);
+                profileButton.setImageResource(R.drawable.toolbar_friends_selected);
+                break;
+            default:
+                homeButton.setImageResource(R.drawable.toolbar_home_selected);
+                listButton.setImageResource(R.drawable.toolbar_calendar);
+                socialButton.setImageResource(R.drawable.toolbar_groups);
+                profileButton.setImageResource(R.drawable.toolbar_friends);
+                break;
+        }
+
+    }
 
 }

@@ -25,6 +25,13 @@
     <string name="female">Female</string>
     <string name="other">Other</string>
 
+    <!--Toolbar res-->
+    <string name="toolbar_home">Home</string>
+    <string name="toolbar_list">Activity List</string>
+    <string name="toolbar_create">Create</string>
+    <string name="toolbar_social">Social</string>
+    <string name="toolbar_profile">Profile</string>
+
 
 
 </resources>
