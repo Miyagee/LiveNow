@@ -65,6 +65,19 @@
            android:layout_alignParentEnd="true"
            android:onClick="processFriendsID"/>
 
+       <FrameLayout
+           android:layout_width="match_parent"
+           android:layout_height="match_parent">
+
+
+           <com.now.live.livenow.swipecard.SwipeFlingAdapterView
+               android:id="@+id/frame"
+               android:layout_width="match_parent"
+               android:layout_height="match_parent"
+               app:rotation_degrees="15.5" />
+
+       </FrameLayout>
+
    </RelativeLayout>
 
     <include layout="@layout/toolbar"
