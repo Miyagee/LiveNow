@@ -7,14 +7,14 @@ public class Event {
     private String title;
     private String description;
     private String place;
-    private Date date;
+    private String date;
     private String time;
 
-    public Event(String title, String description, Date date, String time, String place) {
+    public Event(String title, String description, String date, String time, String place) {
         this.title = title;
         this.description = description;
-        this.time = time;
         this.date = date;
+        this.time = time;
         this.place = place;
     }
 
@@ -30,7 +30,7 @@ public class Event {
         return time;
     }
 
-    public Date getDate() {
+    public String getDate() {
         return date;
     }
 

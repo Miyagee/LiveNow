@@ -8,7 +8,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="center"
-        android:layout_marginBottom="48dp"
+        android:layout_marginBottom="92dp"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:layout_marginTop="64dp">
@@ -53,42 +53,101 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_gravity="center"
-                android:layout_marginBottom="48dp"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
-                android:layout_marginTop="64dp"
                 android:id="@+id/frameLayout">
 
-            <TextView
-                android:id="@+id/title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:text="Placeholder Text :D"
-                android:textColor="#787878"
-                android:textSize="20sp"
-                tools:text="Lorem ipsum dolor"
-                android:layout_marginTop="100dp" />
+                <ImageView
+                    android:background="@drawable/avatar"
+                    android:id="@+id/cardAvatar"
+                    android:layout_width="75dp"
+                    android:layout_height="75dp"
+                    android:layout_gravity="center_horizontal"
+                    android:padding="4dp"
+                    android:scaleType="centerCrop" />
 
-            <TextView
-                android:id="@+id/description"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_below="@+id/title"
-                android:text="Placeholder Text :D"
-                android:textColor="#787878"
-                android:textSize="20sp"
-                tools:text="Lorem ipsum dolor"
-                android:layout_marginTop="120dp" />
+                <EditText
+                    android:id="@+id/title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:textColor="#787878"
+                    android:textSize="20sp"
+                    tools:text="Title"
+                    android:hint="Title"
+                    android:textColorHint="#606060"
+                    android:layout_marginTop="100dp" />
 
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Home"
-                android:id="@+id/button2"
-                android:layout_gravity="center_horizontal|bottom"
-                android:onClick="removeFragment"/>
+                <EditText
+                    android:id="@+id/description"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="left"
+                    android:padding="4dp"
+                    android:textColor="#787878"
+                    android:textSize="16sp"
+                    tools:text="Description"
+                    android:hint="Description"
+                    android:textColorHint="#606060"
+                    android:layout_marginTop="150dp" />
+
+                <EditText
+                    android:id="@+id/date"
+                    android:layout_width="141dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="left"
+                    android:padding="4dp"
+                    android:textColor="#787878"
+                    android:textSize="16sp"
+                    tools:text="Date"
+                    android:hint="Date"
+                    android:textColorHint="#606060"
+                    android:layout_marginTop="280dp"
+                    android:textAlignment="center" />
+
+                <EditText
+                    android:id="@+id/time"
+                    android:layout_width="149dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end"
+                    android:padding="4dp"
+                    android:textColor="#787878"
+                    android:textSize="16sp"
+                    tools:text="Time"
+                    android:hint="Time"
+                    android:textColorHint="#606060"
+                    android:layout_marginTop="280dp"
+                    android:textAlignment="center" />
+
+                <EditText
+                    android:id="@+id/place"
+                    android:layout_width="228dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal|bottom"
+                    android:padding="4dp"
+                    android:textColor="#787878"
+                    android:textSize="16sp"
+                    tools:text="Place"
+                    android:hint="Place"
+                    android:textColorHint="#606060"
+                    android:layout_marginTop="300dp"
+                    android:textAlignment="center"
+                    android:layout_marginBottom="50dp" />
+
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Cancel"
+                    android:id="@+id/button2"
+                    android:layout_gravity="left|top"
+                    android:onClick="removeFragment" />
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Save"
+                    android:id="@+id/save"
+                    android:layout_gravity="right|top"
+                    android:onClick="saveEvent" />
 
             </FrameLayout>
 

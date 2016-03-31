@@ -45,9 +45,8 @@
         android:orientation="vertical">
 
         <FrameLayout
-
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
 
             <ImageView
@@ -89,7 +88,8 @@
                 android:textColor="#787878"
                 android:textSize="16sp"
                 tools:text="Date"
-                android:layout_marginTop="280dp" />
+                android:layout_marginTop="280dp"
+                android:textAlignment="center" />
 
             <TextView
                 android:id="@+id/time"
@@ -101,7 +101,7 @@
                 android:textSize="16sp"
                 tools:text="Time"
                 android:layout_marginTop="280dp"
-                android:textAlignment="textEnd" />
+                android:textAlignment="center" />
 
             <TextView
                 android:id="@+id/place"
@@ -113,7 +113,8 @@
                 android:textSize="16sp"
                 tools:text="Place"
                 android:layout_marginTop="300dp"
-                android:textAlignment="center" />
+                android:textAlignment="center"
+                android:layout_marginBottom="50dp" />
 
         </FrameLayout>
 

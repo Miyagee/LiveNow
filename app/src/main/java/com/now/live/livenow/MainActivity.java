@@ -29,9 +29,11 @@ import com.now.live.livenow.swipecard.SwipeFlingAdapterView;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
+import java.util.Map;
 
 public class MainActivity extends AppCompatActivity implements FlingCardListener.ActionDownInterface {
 
@@ -133,27 +135,32 @@ public class MainActivity extends AppCompatActivity implements FlingCardListener
         al.add(new Event(
                 "Tea & Cake",
                 "Fancy a bit of afternoon tea?",
-                null,
+                "02/04/16",
                 "16:00",
                 "Diggs"));
         al.add(new Event("Bowling",
                 "A game of bowling for the whole family",
-                null,
+                "15/05/16",
                 "18:00",
                 "Bowling Land"));
         al.add(new Event("Singing",
                 "Choir practice for beginners",
-                null,
+                "06/03/16",
                 "10:00",
                 "Nidaros Domen"));
+        al.add(new Event("App-Lab Presentation",
+                "Join us for the final presentation of the app accelerator program App-Lab. There should be beer and pizza :)",
+                "31/03/16",
+                "12:00",
+                "NTNU"));
         al.add(new Event("Fruit Picking",
                 "Collect wild friuts with me :)",
-                null,
+                "21/04/16",
                 "14:00",
                 "Bymarka"));
         al.add(new Event("Programming",
                 "I can teach you Python programming.",
-                null,
+                "27/04/16",
                 "09:00",
                 "NTNU"));
 
@@ -307,9 +314,14 @@ public class MainActivity extends AppCompatActivity implements FlingCardListener
     }
 
     public void saveEvent(View view) {
-        event = createEventFragment.getEvent();
-        eventRef.setValue(event);
 
+        event = createEventFragment.getEvent();
+        eventRef.push().setValue(event);
+
+        al.add(1, event);
+        myAppAdapter.notifyDataSetChanged();
+
+        removeFragment(view);
     }
 
     public void getUserData(){
@@ -458,17 +470,13 @@ public class MainActivity extends AppCompatActivity implements FlingCardListener
         if (fragment != null) {
             getSupportFragmentManager().beginTransaction().remove(fragment).commit();
             showMain();
-
-
         }
-
     }
 
     public void hideMain(){
         if (mainPage.getVisibility() == View.VISIBLE){
             mainPage.setVisibility(View.INVISIBLE);
         }
-
     }
 
     public void showMain(){
@@ -511,7 +519,6 @@ public class MainActivity extends AppCompatActivity implements FlingCardListener
                 profileButton.setImageResource(R.drawable.toolbar_friends);
                 break;
         }
-
     }
 
 }

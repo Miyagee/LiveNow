@@ -5,13 +5,18 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.TextView;
 
 public class CreateEventFragment extends Fragment {
 
     private Event event;
 
-    private TextView titleView;
+    private EditText titleEdit;
+    private EditText descriptionEdit;
+    private EditText dateEdit;
+    private EditText timeEdit;
+    private EditText placeEdit;
 
     public CreateEventFragment(){
         //Empty Constructor
@@ -23,14 +28,13 @@ public class CreateEventFragment extends Fragment {
         View view = getActivity().getLayoutInflater().inflate(R.layout.create_event_fragment, null);
 
         //Init components
-        titleView = (TextView) view.findViewById(R.id.title);
+        titleEdit = (EditText) view.findViewById(R.id.title);
+        descriptionEdit = (EditText) view.findViewById(R.id.description);
+        dateEdit = (EditText) view.findViewById(R.id.date);
+        timeEdit = (EditText) view.findViewById(R.id.time);
+        placeEdit = (EditText) view.findViewById(R.id.place);
 
-        event = new Event(
-                "djt",
-                "Description Text",
-                null,
-                "16:00",
-                "Location");
+        event = new Event("", "", "", "", "");
 
 
         setFields();
@@ -40,9 +44,9 @@ public class CreateEventFragment extends Fragment {
 
     public void setFields() {
         if (StaticHelperClasses.checkNull(event.getTitle())) {
-            titleView.setHint("Title");
+            titleEdit.setHint("TitleFoo");
         } else {
-            titleView.setText(event.getTitle());
+            titleEdit.setText(event.getTitle());
         }
     }
 
@@ -57,15 +61,24 @@ public class CreateEventFragment extends Fragment {
 
     public void getFields() {
         String title;
+        String description;
+        String date;
+        String time;
+        String place;
 
-        title = titleView.getText().toString();
+        title = titleEdit.getText().toString();
+        description = descriptionEdit.getText().toString();
+        date = dateEdit.getText().toString();
+        time = timeEdit.getText().toString();
+        place = placeEdit.getText().toString();
+
 
         event = new Event(
                 title,
-                "Description Text",
-                null,
-                "16:00",
-                "Location");
+                description,
+                date,
+                time,
+                place);
     }
 
 }
