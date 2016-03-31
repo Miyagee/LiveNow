@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="center"
+    android:layout_marginBottom="48dp"
+    android:layout_marginLeft="20dp"
+    android:layout_marginRight="20dp"
+    android:layout_marginTop="64dp">
+
+    <FrameLayout
+        android:id="@+id/background"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="6dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:background="@drawable/card2"
+            android:gravity="center_horizontal"
+            android:orientation="vertical" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="12dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:background="@drawable/card1"
+            android:gravity="center_horizontal"
+            android:orientation="vertical" />
+
+    </FrameLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="18dp"
+        android:background="@drawable/card"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+
+        <FrameLayout
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+
+            <ImageView
+                android:background="@drawable/avatar"
+                android:id="@+id/cardAvatar"
+                android:layout_width="75dp"
+                android:layout_height="75dp"
+                android:layout_gravity="center_horizontal"
+                android:padding="4dp"
+                android:scaleType="centerCrop" />
+
+            <TextView
+                android:id="@+id/title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:textColor="#787878"
+                android:textSize="20sp"
+                tools:text="Lorem ipsum dolor"
+                android:layout_marginTop="100dp" />
+
+            <TextView
+                android:id="@+id/description"
+                android:layout_width="wrap_content"
+                android:layout_height="117dp"
+                android:layout_gravity="left"
+                android:padding="4dp"
+                android:textColor="#787878"
+                android:textSize="16sp"
+                tools:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+                android:layout_marginTop="150dp" />
+
+            <TextView
+                android:id="@+id/date"
+                android:layout_width="141dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left"
+                android:padding="4dp"
+                android:textColor="#787878"
+                android:textSize="16sp"
+                tools:text="Date"
+                android:layout_marginTop="280dp" />
+
+            <TextView
+                android:id="@+id/time"
+                android:layout_width="149dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:padding="4dp"
+                android:textColor="#787878"
+                android:textSize="16sp"
+                tools:text="Time"
+                android:layout_marginTop="280dp"
+                android:textAlignment="textEnd" />
+
+            <TextView
+                android:id="@+id/place"
+                android:layout_width="228dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal|bottom"
+                android:padding="4dp"
+                android:textColor="#787878"
+                android:textSize="16sp"
+                tools:text="Place"
+                android:layout_marginTop="300dp"
+                android:textAlignment="center" />
+
+        </FrameLayout>
+
+    </LinearLayout>
+
+
+    <View
+        android:id="@+id/item_swipe_left_indicator"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_gravity="left"
+        android:alpha="0"
+        android:background="@drawable/like" />
+
+    <View
+        android:id="@+id/item_swipe_right_indicator"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_gravity="right"
+        android:alpha="0"
+        android:background="@drawable/nope" />
+
+</FrameLayout>
