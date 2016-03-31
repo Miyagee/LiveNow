@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -14,6 +15,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.now.live.livenow.swipecard.FlingCardListener;
@@ -33,14 +35,20 @@ public class MainActivity extends AppCompatActivity implements FlingCardListener
     private SwipeFlingAdapterView flingContainer;
 
     Firebase ref;
+    Firebase eventRef;
+
+    private Event event;
 
     public static void removeBackground() {
-
-
         viewHolder.background.setVisibility(View.GONE);
         myAppAdapter.notifyDataSetChanged();
-
     }
+
+    //Layout
+    private RelativeLayout mainPage;
+
+    //Fragments
+    private CreateEventFragment createEventFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,34 +67,48 @@ public class MainActivity extends AppCompatActivity implements FlingCardListener
         });
 
         ref = new Firebase("https://live-now.firebaseio.com/");
+        eventRef = ref.child("events/" + ref.getAuth().getUid() + "/");
 
         flingContainer = (SwipeFlingAdapterView) findViewById(R.id.frame);
+
+        mainPage = (RelativeLayout) findViewById(R.id.mainPage);
+
+        //Checks for fragment alive
+        if (findViewById(R.id.fragment_container_main) != null) {
+
+            // However, if we're being restored from a previous state,
+            // then we don't need to do anything and should return or else
+            // we could end up with overlapping fragments.
+            if (savedInstanceState != null) {
+                return;
+            }
+        }
 
         al = new ArrayList<>();
         al.add(new Event(
                 "Tea & Cake",
                 "Fancy a bit of afternoon tea?",
-                "22/03/16",
+                null,
                 "16:00",
                 "Diggs"));
         al.add(new Event("Bowling",
                 "A game of bowling for the whole family",
-                "31/03/16",
+                null,
                 "18:00",
                 "Bowling Land"));
         al.add(new Event("Singing",
                 "Choir practice for beginners",
-                "06/04/16",
+                null,
                 "10:00",
                 "Nidaros Domen"));
         al.add(new Event("Fruit Picking",
                 "Collect wild friuts with me :)",
-                "20/04/16",
+                null,
                 "14:00",
                 "Bymarka"));
         al.add(new Event("Programming",
                 "I can teach you Python programming.",
-                "01/05/2016",
+                null,
                 "09:00",
                 "NTNU"));
 
@@ -102,6 +124,7 @@ public class MainActivity extends AppCompatActivity implements FlingCardListener
             public void onLeftCardExit(Object dataObject) {
                 al.remove(0);
                 myAppAdapter.notifyDataSetChanged();
+
                 //Do something on the left!
                 //You also have access to the original object.
                 //If you want to use it just cast it (String) dataObject
@@ -222,6 +245,49 @@ public class MainActivity extends AppCompatActivity implements FlingCardListener
 
             return rowView;
         }
+    }
+
+    public void createEventView(View view) {
+        removeFragment(view);
+
+        if (findViewById(R.id.fragment_container_main) != null) {
+            hideMain();
+            createEventFragment = new CreateEventFragment();
+            createEventFragment.setEvent(event);
+            createEventFragment.setArguments(getIntent().getExtras());
+
+            getSupportFragmentManager().beginTransaction()
+                    .add(R.id.fragment_container_main, createEventFragment).commit();
+        }
+    }
+
+    public void removeFragment(View view){
+        Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.fragment_container_main);
+        if (fragment != null) {
+            getSupportFragmentManager().beginTransaction().remove(fragment).commit();
+            showMain();
+        }
+
+    }
+
+    public void hideMain(){
+        if (mainPage.getVisibility() == View.VISIBLE){
+            mainPage.setVisibility(View.INVISIBLE);
+        }
+
+    }
+
+    public void showMain(){
+        if(mainPage.getVisibility() == View.INVISIBLE){
+            mainPage.setVisibility(View.VISIBLE);
+        }
+    }
+
+    public void saveEvent(View view) {
+        event = createEventFragment.getEvent();
+        eventRef.setValue(event);
+
+
     }
 
     //Log out button

@@ -6,11 +6,11 @@ public class Event {
 
     private String title;
     private String description;
-    private String date;
-    private String time;
     private String place;
+    private Date date;
+    private String time;
 
-    public Event(String title, String description, String date, String time, String place) {
+    public Event(String title, String description, Date date, String time, String place) {
         this.title = title;
         this.description = description;
         this.time = time;
@@ -30,7 +30,7 @@ public class Event {
         return time;
     }
 
-    public String getDate() {
+    public Date getDate() {
         return date;
     }
 
