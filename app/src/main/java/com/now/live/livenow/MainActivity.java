@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -66,6 +67,7 @@ public class MainActivity extends AppCompatActivity implements FlingCardListener
     private ImageButton createButton;
     private ImageButton socialButton;
     private ImageButton profileButton;
+
 
     //Event info fields
     private Event event;
@@ -309,7 +311,7 @@ public class MainActivity extends AppCompatActivity implements FlingCardListener
             createEventFragment.setArguments(getIntent().getExtras());
 
             getSupportFragmentManager().beginTransaction()
-                    .add(R.id.fragment_container_main, createEventFragment).commit();
+                    .add(R.id.fragment_container_main, createEventFragment).addToBackStack(null).commit();
         }
     }
 
@@ -418,9 +420,9 @@ public class MainActivity extends AppCompatActivity implements FlingCardListener
             profileFragment.setArguments(getIntent().getExtras());
 
 
-            // Add the fragment to the 'fragment_container' FrameLayout
+            // Add the fragment to the 'fragment_container' FrameLayout //addToBackStack(null) adds fragment to backstack
             getSupportFragmentManager().beginTransaction()
-                    .add(R.id.fragment_container_main, profileFragment).commit();
+                    .add(R.id.fragment_container_main, profileFragment).addToBackStack(null).commit();
 
         }
     }
@@ -446,7 +448,7 @@ public class MainActivity extends AppCompatActivity implements FlingCardListener
 
             // Add the fragment to the 'fragment_container' FrameLayout
             getSupportFragmentManager().beginTransaction()
-                    .add(R.id.fragment_container_main, editProfileFragment).commit();
+                    .add(R.id.fragment_container_main, editProfileFragment).addToBackStack(null).commit();
 
         }
     }
@@ -519,6 +521,28 @@ public class MainActivity extends AppCompatActivity implements FlingCardListener
                 profileButton.setImageResource(R.drawable.toolbar_friends);
                 break;
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        // do something on back.
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        if(mainPage.getVisibility()==View.VISIBLE){
+            return;
+        }else{
+            super.onBackPressed();
+
+            if (fragmentManager.getBackStackEntryCount()>0){
+                fragmentManager.popBackStack();
+                if(mainPage.getVisibility() == View.INVISIBLE){
+                    showMain();
+                }
+            }else {
+                showMain();
+            }
+        }
+
+        System.out.println(fragmentManager.getBackStackEntryCount());
     }
 
 }
